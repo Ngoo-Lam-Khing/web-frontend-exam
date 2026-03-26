@@ -30,18 +30,22 @@
 
 ## ✅ 提交說明
 
-1. 請將專案上傳至 Github，提交 Repositories 連結給HR，我們將會閱讀你的程式碼
+1. 請將專案上傳至 Github，提交 Repositories 連結給 HR，我們將會閱讀你的程式碼
 2. 請提供一份 README 文件說明
    1. 如何執行此專案
    2. 專案架構、邏輯說明
    3. 專案遇到的困難、問題及解決方法
-3. 請回傳給HR，內容需包含 Github Repositories Link
+3. 請回傳給 HR，內容需包含 Github Repositories Link
 
 ## 🥇 加分項目
 
 - 加載資料時的過渡表現
 - 細節動畫表現
 - 部署至任一平台以供成果檢視，例如：Heroku、AWS S3、GCS、Github Page …… 等
+
+## ⚠️ 注意事項
+
+- 素材為本公司內部所有，除此次線上考使用，請勿另用他途。
 
 ## ⚙️ API
 
