@@ -4,8 +4,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import LogoImgMobile from '../assets/mobile/Logo-01.png';
 import LogoImgDesktop from '../assets/desktop/Logo-01.png';
-import CharacterImgMobile from '../assets/mobile/character-01.png';
-import CharacterImgDesktop from '../assets/desktop/character-01.png';
+import CharacterImgMobile from '../assets/mobile/Character-01.png';
+import CharacterImgDesktop from '../assets/desktop/Character-01.png';
 import LeftEyeImgMobile from '../assets/mobile/LeftEye.png';
 import LeftEyeImgDesktop from '../assets/desktop/LeftEye.png';
 import RightEyeImgMobile from '../assets/mobile/RightEye.png';
