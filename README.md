@@ -51,15 +51,15 @@ bun run build
 
 ```
 src/
-├── assets/                  # 靜態圖片資源（mobile / desktop 兩套）
+├── assets/                  # 靜態圖片資源（mobile / desktop）
 ├── components/              # UI 元件
 │   ├── Banner.tsx           # 頂部 Banner，含眼球跟隨動畫
 │   ├── Filter.tsx           # 條件篩選列
 │   ├── Select.tsx           # 通用下拉選單元件
 │   ├── JobCard.tsx          # 職缺卡片
-│   ├── JobCardSkeleton.tsx  # 職缺卡片載入中骨架屏
+│   ├── JobCardSkeleton.tsx  # 職缺卡片載入中骨架動畫
 │   ├── JobDialog.tsx        # 職缺詳情對話框
-│   └── JobDialogSkeleton.tsx
+│   └── JobDialogSkeleton.tsx# 職缺詳情對話框載入中骨架動畫
 ├── composables/             # 自訂 Hook
 │   ├── useJobs.ts           # 職缺列表資料請求（含分頁、篩選）
 │   ├── useJobDetail.ts      # 職缺詳情資料請求
@@ -82,23 +82,18 @@ src/
 
 ### 資料請求策略
 
-職缺列表（`useJobs`）使用 TanStack React Query，queryKey 包含 `page`、`pageSize` 及所有篩選條件，搭配 `keepPreviousData` 在換頁時保留舊資料，避免畫面閃爍。`staleTime` 設為 5 分鐘，靜態列表（教育程度、薪資範圍）則設為 `Infinity`，只在第一次載入時發送請求。
+職缺列表（`useJobs`）使用 TanStack React Query，queryKey 包含 `page`、`pageSize` 及所有篩選條件，搭配 `keepPreviousData` 在換頁時保留舊資料，避免畫面閃爍。`staleTime` 設為 5 分鐘。
 
 ### Skeleton 顯示邏輯
 
-利用 `isFetching` 與 `isPlaceholderData` 的組合區分三種載入情境：
-
-- **第一次載入**：`isFetching === true` 且 `data === undefined` → 顯示 Skeleton
-- **新篩選條件無快取**：`isFetching === true` 且 `isPlaceholderData === true` 且使用者剛觸發搜尋 → 顯示 Skeleton
-- **換頁有快取**：`isFetching === true` 但 `isPlaceholderData === false` → 不顯示 Skeleton，Pagination 保持可見
-
-`isFilterChanged` 這個 state 用來區分「換頁」與「新篩選條件」兩種觸發來源。
+- **Banner第一次載入**：`Character-01.png`設定load事件監聽 `loaded`為false → 顯示 Skeleton
+- **篩選列表第一次載入**：`educationLoading === true` 或 `salaryLoading === true` → 顯示 Skeleton
+- **新篩選條件無快取**：`jobsFetching === true` → 顯示 Skeleton
+- **在相同篩選條件換頁**：`jobsFetching === true` 但 `page !== 1` → 不顯示 Skeleton，Pagination 保持可見
 
 ### 眼球跟隨效果
 
 `useEye.ts` 透過 `react-use` 的 `useMouse` 取得滑鼠在文件中的座標，計算滑鼠相對眼球中心的偏移量，經 normalize、`easeOutQuad` 非線性緩動後，mapping 至各眼睛設定的位移範圍（xMin/xMax/yMin/yMax），讓左右眼有不同的移動幅度，更接近自然視覺效果。
-
-為避免每次 render 傳入新的 range 物件導致 `useMemo` 失效，range 常數定義在 `Banner.tsx` 的 module 層級。
 
 ### 全域篩選列表 Context
 
