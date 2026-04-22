@@ -26,7 +26,7 @@ const filterFormat = (
 };
 
 export const handlers = [
-  http.get('./api/v1/jobs', async ({ request }) => {
+  http.get('/api/v1/jobs', async ({ request }) => {
     await delay();
     const url = new URL(request.url);
     const companyName = url.searchParams.get('company_name');
@@ -48,7 +48,7 @@ export const handlers = [
     return HttpResponse.json({ data: result, total: result.length });
   }),
 
-  http.get('./api/v1/jobs/:id', async ({ params }) => {
+  http.get('/api/v1/jobs/:id', async ({ params }) => {
     await delay();
 
     const { id } = params;
@@ -61,7 +61,7 @@ export const handlers = [
     return HttpResponse.json([]);
   }),
 
-  http.get('./api/v1/educationLevelList', () => HttpResponse.json(educationList)),
+  http.get('/api/v1/educationLevelList', () => HttpResponse.json(educationList)),
 
-  http.get('./api/v1/salaryLevelList', () => HttpResponse.json(salaryList)),
+  http.get('/api/v1/salaryLevelList', () => HttpResponse.json(salaryList)),
 ];
