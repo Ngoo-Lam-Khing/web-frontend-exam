@@ -1,6 +1,6 @@
 # 前端工程師職缺平台
 
-一個以 React 開發的職缺瀏覽平台，提供條件篩選、分頁瀏覽及職缺詳情查看功能，並具備互動式 Banner 角色眼球跟隨效果。
+一個以 React 開發的職缺瀏覽平台，提供條件篩選、分頁瀏覽及職缺詳情查看功能，並具備互動式 Banner 角色眼球跟隨效果。  
 瀏覽示範網址: [https://ngoo-lam-khing.github.io/web-frontend-exam/](https://ngoo-lam-khing.github.io/web-frontend-exam/)
 
 ---
