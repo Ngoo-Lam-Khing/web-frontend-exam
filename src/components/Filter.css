@@ -1,0 +1,30 @@
+.filter {
+  margin: 18px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+
+  .MuiInputBase-root {
+    height: 56px;
+  }
+  &__company {
+    flex: 2.5 1 0%;
+    min-width: 300px;
+  }
+  &__select {
+    flex: 1 1 0%;
+    min-width: 245px;
+  }
+  &__submit {
+    flex: 0.5 1 0%;
+  }
+
+  button {
+    height: 56px;
+    padding: 8px 22px;
+    background-color: #999999;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+  }
+}

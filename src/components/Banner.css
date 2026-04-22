@@ -1,0 +1,114 @@
+@keyframes zoom {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.banner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image: url('../assets/mobile/Background-01.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (min-width: 376px) {
+    width: 100%;
+    height: auto;
+    max-width: 1440px;
+    max-height: 823px;
+    margin: 0 auto;
+    aspect-ratio: 1440 / 823;
+    background-image: url('../assets/desktop/Background-01.png');
+  }
+
+  .character {
+    width: calc(100% * 317 / 375);
+    height: 100%;
+    overflow: hidden;
+    background-image: url('../assets/mobile/Character-01-White.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    line-height: 0;
+    @media (min-width: 376px) {
+      width: calc(100% * 1097 / 1440);
+      background-image: url('../assets/desktop/Character-01-White.png');
+    }
+
+    .left-eye {
+      width: calc(100% * 13 / 375);
+      height: calc(100% * 11 / 238);
+      position: absolute;
+      left: calc(100% * 166 / 375);
+      top: calc(100% * 88 / 238);
+      will-change: transform;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+      @media (min-width: 376px) {
+        width: calc(100% * 41 / 1440);
+        height: calc(100% * 33 / 823);
+        left: calc(100% * 582 / 1440);
+        top: calc(100% * 307 / 823);
+      }
+    }
+    .right-eye {
+      width: calc(100% * 12 / 375);
+      height: calc(100% * 10 / 238);
+      position: absolute;
+      left: calc(100% * 212 / 375);
+      top: calc(100% * 87 / 238);
+
+      will-change: transform;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+      @media (min-width: 376px) {
+        width: calc(100% * 39 / 1440);
+        height: calc(100% * 32 / 823);
+        left: calc(100% * 729 / 1440);
+        top: calc(100% * 302 / 823);
+      }
+    }
+    .figure {
+      position: relative;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .logo {
+    width: calc(100% * 137 / 375);
+    height: calc(100% * 82 / 238);
+    position: absolute;
+    left: calc(100% * 227 / 375);
+    top: calc(100% * 133 / 238);
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: auto;
+      animation: zoom 1.5s ease-in-out infinite alternate;
+    }
+    @media (min-width: 376px) {
+      width: calc(100% * 540 / 1440);
+      height: calc(100% * 323 / 823);
+      max-width: 540px;
+      max-height: 323px;
+      aspect-ratio: 540 / 323;
+      left: calc(100% * 817 / 1440);
+      top: calc(100% * 350 / 823);
+    }
+  }
+}

@@ -1,0 +1,55 @@
+main {
+  max-width: 100%;
+  padding: 1rem;
+  background-color: #fff;
+  @media screen and (min-width: 376px) {
+    width: 1384px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      border-radius: 4px;
+      background-color: #ee8927;
+    }
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    @media screen and (min-width: 376px) {
+      font-size: 1.44rem;
+    }
+  }
+}
+
+.job-list {
+  margin-top: 0.694rem;
+  display: grid;
+  gap: 10px;
+
+  @media screen and (min-width: 376px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pagination {
+  button {
+    @media screen and (min-width: 376px) {
+      font-size: 14px;
+      svg {
+        font-size: 20px;
+      }
+    }
+  }
+}

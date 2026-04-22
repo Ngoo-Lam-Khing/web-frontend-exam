@@ -1,0 +1,76 @@
+.card {
+  max-width: 100%;
+  min-height: 210px;
+  border: 1px solid #cccccc;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (min-width: 376px) {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0px 0px 8px 0px #00000059;
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    @media screen and (min-width: 376px) {
+      row-gap: 8px;
+    }
+
+    .company {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #4d4d4d;
+    }
+
+    .job,
+    .education,
+    .salary,
+    .preview {
+      font-size: 14px;
+      font-weight: 400;
+      color: #808080;
+    }
+    .job,
+    .education,
+    .salary {
+      display: flex;
+      align-items: center;
+      column-gap: 6px;
+      .icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .preview {
+      color: #4d4d4d;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+  }
+
+  .card-actions {
+    margin-block-start: 8px;
+    padding: 0;
+    justify-content: center;
+    .detail {
+      padding: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ee8927;
+    }
+  }
+}

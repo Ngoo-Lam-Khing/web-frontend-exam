@@ -1,171 +1,149 @@
-# Frontend Engineer Exam
+# 前端工程師職缺平台
 
-這是一份 Yile 前端工程師的徵才專案，會需根據規則及設計檔完成頁面需求。
+一個以 React 開發的職缺瀏覽平台，提供條件篩選、分頁瀏覽及職缺詳情查看功能，並具備互動式 Banner 角色眼球跟隨效果。
 
-## ⭐️ 需求
+---
 
-### 框架
+## 技術棧
 
-1. 語言：Javascript
-2. Framework：
-   1. 建議使用 React.js / Next.js，使用 Vue.js 亦可接受
+| 類別       | 技術                      |
+| ---------- | ------------------------- |
+| 框架       | React 18 + TypeScript     |
+| 建構工具   | Vite                      |
+| 套件管理   | Bun                       |
+| UI 元件庫  | Material UI (MUI)         |
+| 資料請求   | TanStack React Query v5   |
+| API Mock   | MSW (Mock Service Worker) |
+| 輪播元件   | Swiper                    |
+| HTML 淨化  | DOMPurify                 |
+| 工具函式庫 | react-use                 |
 
-### CSS
+---
 
-可以選擇以下其一或者搭配做為使用
+## 如何執行此專案
 
-1. [Material UI](https://mui.com/material-ui/)
-2. [Sass](https://sass-lang.com/)
-3. [Tailwindcss](https://tailwindcss.com/)
+### 環境需求
 
-### Coding Style
+- [Bun](https://bun.sh/) >= 1.0
 
-採用 [Google Coding Style](https://google.github.io/styleguide/) 或 [Airbnb Style](https://github.com/airbnb/javascript)，我們將會審查你的程式碼是否符合風格規範
+### 安裝與啟動
 
-## 📝 實作描述
+```bash
+# 安裝依賴
+bun install
 
-- 請 Fork 此專案做開發
-- 根據 [Figma](https://www.figma.com/file/VcTqAK0x3JBi9nMvqN9YXJ/Web-Frontend-Developer-Exam?type=design&node-id=0%3A1&mode=design&t=EAnp3AAU1aqJ66e2-1) 實作頁面，請 `登入` 帳號才可看到實作細節
-- 若有任何優化、更好方式請自由發揮，但確保基本功能皆有達成需求
+# 啟動開發伺服器（MSW 會自動在瀏覽器中攔截 API 請求）
+bun dev
+```
 
-## ✅ 提交說明
+開啟瀏覽器前往 [http://localhost:5173](http://localhost:5173)
 
-1. 請將專案上傳至 Github，提交 Repositories 連結給 HR，我們將會閱讀你的程式碼
-2. 請提供一份 README 文件說明
-   1. 如何執行此專案
-   2. 專案架構、邏輯說明
-   3. 專案遇到的困難、問題及解決方法
-3. 請回傳給 HR，內容需包含 Github Repositories Link
+### 建置
 
-## 🥇 加分項目
-
-- 加載資料時的過渡表現
-- 細節動畫表現
-- 部署至任一平台以供成果檢視，例如：Heroku、AWS S3、GCS、Github Page …… 等
-
-## ⚠️ 注意事項
-
-- 素材為本公司內部所有，除此次線上考使用，請勿另用他途。
-
-## ⚙️ API
-
-### Job List [GET] `/api/v1/jobs`
-
-工作列表
-
-**Parameter**
-
-| Name | Description |
-| ---------------- | -------------- |
-| pre_page         | 每頁顯示筆數     |
-| page             | 指定頁面頁數     |
-| company_name     | 公司名稱        |
-| education_level  | 教育程度 id     |
-| salary_level     | 薪資範圍 id     |
-
-**Response**
-
-```json
-{
-  "data": [
-    {
-      "id": "1",
-      "companyName": "立刻科技",
-      "jobTitle": "資深前端工程師",
-      "educationId": 4,
-      "salaryId": 3,
-      "preview": "招募經驗豐富的前端工程師，共創卓越網頁體驗！",
-    }
-  ],
-  "total": 1
-}
+```bash
+bun run build
 ```
 
 ---
 
-### Education Level List [GET] `/api/v1/educationLevelList`
+## 專案架構
 
-教育程度列表
-
-**Response**
-
-```json
-[
-  {
-     "id": "1", "label": "國小"
-  },
-  {
-     "id": "2", "label": "國中"
-  },
-  {
-     "id": "3", "label": "高中"
-  },
-  {
-     "id": "4", "label": "大學"
-  },
-  {
-     "id": "5", "label": "碩士"
-  },
-  {
-     "id": "6", "label": "博士"
-  }
-]
+```
+src/
+├── assets/                  # 靜態圖片資源（mobile / desktop 兩套）
+├── components/              # UI 元件
+│   ├── Banner.tsx           # 頂部 Banner，含眼球跟隨動畫
+│   ├── Filter.tsx           # 條件篩選列
+│   ├── Select.tsx           # 通用下拉選單元件
+│   ├── JobCard.tsx          # 職缺卡片
+│   ├── JobCardSkeleton.tsx  # 職缺卡片載入中骨架屏
+│   ├── JobDialog.tsx        # 職缺詳情對話框
+│   └── JobDialogSkeleton.tsx
+├── composables/             # 自訂 Hook
+│   ├── useJobs.ts           # 職缺列表資料請求（含分頁、篩選）
+│   ├── useJobDetail.ts      # 職缺詳情資料請求
+│   ├── useFetchList.ts      # 教育程度 / 薪資範圍靜態列表請求
+│   └── useEye.ts            # 眼球跟隨滑鼠偏移計算
+├── context/
+│   └── FilterListContext.tsx # 教育 / 薪資 列表全域狀態
+├── mocks/                   # MSW mock 定義
+│   ├── handlers.ts
+│   └── browser.ts
+├── types/
+│   └── index.ts             # 全域 TypeScript 型別定義
+├── App.tsx
+└── main.tsx
 ```
 
 ---
 
-### Salary Level List [GET] `/api/v1/salaryLevelList`
+## 邏輯說明
 
-薪資範圍列表
+### 資料請求策略
 
-**Response**
+職缺列表（`useJobs`）使用 TanStack React Query，queryKey 包含 `page`、`pageSize` 及所有篩選條件，搭配 `keepPreviousData` 在換頁時保留舊資料，避免畫面閃爍。`staleTime` 設為 5 分鐘，靜態列表（教育程度、薪資範圍）則設為 `Infinity`，只在第一次載入時發送請求。
 
-```json
-[
-  {
-    "id": "1", "label": "待遇面議"
-  },
-  {
-    "id": "2", "label": "月薪 40,000 ~ 60,000 元"
-  },
-  {
-    "id": "3", "label": "月薪 70,000 ~ 100,000 元"
-  },
-  {
-    "id": "4", "label": "年薪 800,000 ~ 1,000,000 元"
-  },
-  {
-    "id": "5", "label": "年薪 800,000 ~ 1,500,000 元"
-  },
-  {
-    "id": "6", "label": "年薪 1,500,000 ~ 2,000,000 元"
-  },
-  {
-    "id": "7", "label": "年薪 2,000,000 ~ 2,500,000 元"
-  }
-]
-```
+### Skeleton 顯示邏輯
+
+利用 `isFetching` 與 `isPlaceholderData` 的組合區分三種載入情境：
+
+- **第一次載入**：`isFetching === true` 且 `data === undefined` → 顯示 Skeleton
+- **新篩選條件無快取**：`isFetching === true` 且 `isPlaceholderData === true` 且使用者剛觸發搜尋 → 顯示 Skeleton
+- **換頁有快取**：`isFetching === true` 但 `isPlaceholderData === false` → 不顯示 Skeleton，Pagination 保持可見
+
+`isFilterChanged` 這個 state 用來區分「換頁」與「新篩選條件」兩種觸發來源。
+
+### 眼球跟隨效果
+
+`useEye.ts` 透過 `react-use` 的 `useMouse` 取得滑鼠在文件中的座標，計算滑鼠相對眼球中心的偏移量，經 normalize、`easeOutQuad` 非線性緩動後，mapping 至各眼睛設定的位移範圍（xMin/xMax/yMin/yMax），讓左右眼有不同的移動幅度，更接近自然視覺效果。
+
+為避免每次 render 傳入新的 range 物件導致 `useMemo` 失效，range 常數定義在 `Banner.tsx` 的 module 層級。
+
+### 全域篩選列表 Context
+
+`FilterListContext` 統一管理教育程度與薪資範圍列表，並預先計算 `educationLabelMap` 與 `salaryLabelMap`，供 `App.tsx` 做職缺卡片的 label 轉換，以及 `Filter.tsx` 渲染下拉選單，避免 prop drilling 跨越三層元件。
 
 ---
 
-### Job [GET] `/api/v1/jobs/:id`
+## 遇到的困難與解決方法
 
-單一工作資訊
+### 1. `keepPreviousData` 導致 `isLoading` 永遠為 false
 
-**Response**
+**問題**：使用 `keepPreviousData` 後，切換篩選條件時 React Query 會借用上一次的資料填充，使 `isLoading`（定義為 `isFetching && !hasData`）永遠不會變成 `true`，導致新篩選條件下無法顯示 Skeleton。
 
-```json
-{
-  "id": "6",
-  "description": "<h1>貨運操作員</h1><h2>工作地點：公司總部 - 台北市</h2><h2>職責與要求</h2><ul><li>負責倉儲內的物品搬運、分裝、包裝及出貨作業，確保貨物的準確性和完整性。<br />遵循公司的作業流程和安全規範，保障倉庫內的工作環境。<br />與團隊成員合作，確保倉儲操作的順暢進行。<br />需具備基本的電腦操作能力，能使用相關SaaS系統進行庫存管理。<br />需要有良好的溝通協調能力，能有效地與其他部門合作，確保整體物流運作的協調性。<br />對倉儲物流行業有興趣，願意學習並接受公司提供的培訓。</li></ul><h2>資格</h2><ul><li>至少高中畢業，具備相關物流或倉儲操作經驗者優先考慮。<br />具有貨運相關證照者尤佳。<br />對工作積極負責，有良好的工作態度和團隊協作精神。<br />願意接受輪班工作，能夠適應倉儲作業的體力需求。</li></ul><h2>我們提供</h2><ul><li>充滿挑戰性的工作環境，與國際化的專業團隊一同合作。<br />完善的培訓體系，協助您提升相關技能和知識。<br />良好的晉升機會，公司快速發展將為您提供更多職涯發展空間。<br />公司福利包括勞健保、團體保險、員工餐飲補助等。</li></ul><p>如果您渴望挑戰自我，想要加入一個充滿活力和機會的團隊，請將您的履歷寄至 <a href=\"mailto:hr@jenjanlogistics.com\">hr@jenjanlogistics.com</a>，我們期待與您攜手共創物流行業的未來。<br /><br />【JenJan真站電商衛星倉儲物流】期待您的加入！</p>",
-  "companyPhoto": [
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150",
-    "https://picsum.photos/250/150"
-  ],
-  "jobTitle": "廚師助手",
-  "companyName": "餐飲樂活"
-}
-```
+**解法**：改用 `isPlaceholderData` 搭配自訂 `isFilterChanged` state 區分「換頁」與「新篩選條件」：
+
+- 換頁 → 不顯示 Skeleton（Pagination 保持可操作）
+- 新篩選條件無快取 → 顯示 Skeleton
+
+---
+
+### 2. `useEyeOffset` 的 range 物件每次 render 重新建立
+
+**問題**：`Banner.tsx` 每次 render 時傳入新的物件字面量作為 range，導致 `useEyeOffset` 內的 `useMemo` dependency 每次都不同，等同沒有快取，造成不必要的重複計算。
+
+**解法**：將 range 常數提升至 module 層級定義，確保參考穩定。
+
+---
+
+### 3. json-server 改為 MSW
+
+**問題**：json-server 需要額外啟動 server 程序，且在 Vite 環境下需設定 proxy，部署時也需要額外處理。
+
+**解法**：改用 MSW（Mock Service Worker），在瀏覽器 Service Worker 層攔截請求，不需要額外程序，開發與建置流程統一，且支援完整的 Request/Response 控制，方便模擬分頁、篩選等複雜 API 行為。
+
+---
+
+### 4. dangerouslySetInnerHTML XSS 風險
+
+**問題**：職缺詳情的 `description` 欄位為後端回傳的 HTML 字串，直接渲染存在 XSS 風險。
+
+**解法**：引入 DOMPurify，在渲染前對 HTML 做 sanitize，移除潛在的惡意腳本，僅保留安全的 HTML 標籤與屬性。
+
+---
+
+### 5. Filter 重複送出請求
+
+**問題**：在 API 請求進行中，使用者可以繼續操作 Filter 並再次送出搜尋，造成多次請求競爭、UI 頻繁更新。
+
+**解法**：將 `jobsFetching` 作為 `disabled` prop 傳入 `Filter`，在 fetch 進行中鎖住所有輸入欄位與搜尋按鈕，等待回應完成後才允許再次操作。
