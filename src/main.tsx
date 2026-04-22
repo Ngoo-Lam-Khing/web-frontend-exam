@@ -15,7 +15,11 @@ async function enableMocking() {
 
   // `worker.start()` returns a Promise that resolves
   // once the Service Worker is up and ready to intercept requests.
-  await worker.start();
+  await worker.start({
+    serviceWorker: {
+      url: `./mockServiceWorker.js`,
+    },
+  });
 }
 const queryClient = new QueryClient();
 const theme = createTheme({

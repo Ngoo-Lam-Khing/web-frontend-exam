@@ -1,12 +1,12 @@
 import './App.css';
-import { useMemo, useState, useCallback } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Skeleton from '@mui/material/Skeleton';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
 
 import { FilterListProvider, useFilterContext } from './context/FilterListContext';
 
@@ -31,7 +31,6 @@ function AppContent() {
   } = useFilterContext();
   const isMobile = useMediaQuery('(max-width: 375px)');
   const pageSize = isMobile ? 4 : 6;
-
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<JobFilters>({
     companyName: '',
@@ -56,10 +55,16 @@ function AppContent() {
     handleClose,
   } = useJobDetail();
 
-  const errorMessage = useMemo(
-    () => [jobsError, educationError, salaryError, jobDetailError].filter(Boolean),
-    [jobsError, educationError, salaryError, jobDetailError],
-  );
+  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    const errors = [jobsError, educationError, salaryError, jobDetailError].filter(Boolean);
+
+    errors.forEach((err) => {
+      enqueueSnackbar(String(err), {
+        variant: 'error',
+      });
+    });
+  }, [jobsError, educationError, salaryError, jobDetailError, enqueueSnackbar]);
 
   const handleFilterChange = useCallback((newFilters: JobFilters) => {
     setFilters(newFilters);
@@ -87,17 +92,12 @@ function AppContent() {
 
   const jobSkeletons = Array.from({ length: pageSize }, (_, i) => <JobCardSkeleton key={i} />);
 
+  const isFirstLoad = jobsFetching && page === 1;
   return (
     <>
       <Banner />
       <main>
         <h1>適合前端工程師的好工作</h1>
-        {errorMessage.length > 0 &&
-          errorMessage.map((msg) => (
-            <Alert key={msg as string} severity="error" sx={{ mb: 2 }}>
-              {String(msg)}
-            </Alert>
-          ))}
         {(educationLoading || salaryLoading) && (
           <Skeleton
             className="filter"
@@ -141,7 +141,7 @@ function AppContent() {
             jobs.map((job) => <JobCard key={job.id} job={job} handleClickOpen={handleClickOpen} />)}
         </section>
         <Stack direction="row" sx={{ justifyContent: 'center', mt: '6px' }}>
-          {jobsFetching && (
+          {isFirstLoad && (
             <Skeleton
               className="pagination"
               variant="rounded"
@@ -150,8 +150,7 @@ function AppContent() {
               animation="wave"
             />
           )}
-          {!jobsFetching && jobs.length === 0 && null}
-          {!jobsFetching && jobs.length > 0 && (
+          {!isFirstLoad && jobs.length > 0 && (
             <Pagination
               className="pagination"
               count={totalPages}
@@ -174,7 +173,9 @@ function AppContent() {
 function App() {
   return (
     <FilterListProvider>
-      <AppContent />
+      <SnackbarProvider maxSnack={5}>
+        <AppContent />
+      </SnackbarProvider>
     </FilterListProvider>
   );
 }

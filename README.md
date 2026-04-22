@@ -107,11 +107,12 @@ src/
 
 ## 遇到的困難與解決方法
 
-### 1. `keepPreviousData` 導致 `isLoading` 永遠為 false
+### 1. 篩選條件不變情況下且換新頁 導致 `Pagination` 會顯示 `Skeletong` 動畫
 
-**問題**：使用 `keepPreviousData` 後，切換篩選條件時 React Query 會借用上一次的資料填充，使 `isLoading`（定義為 `isFetching && !hasData`）永遠不會變成 `true`，導致新篩選條件下無法顯示 Skeleton。
+**問題**：篩選條件不變時，點擊新頁碼，發送api，會導致 `Pagination`顯示載入動畫，即使總頁數不變。
 
-**解法**：改用 `isPlaceholderData` 搭配自訂 `isFilterChanged` state 區分「換頁」與「新篩選條件」：
+**解法**：改用 `JobsFetching` 搭配自訂 `page === 1` 區分「換頁」與「新篩選條件」，確保只要篩選條件改變，
+會觸發 `handleSearch` 並觸發 `SetPage(1)`，代表`jobs`已經是不同清單資料，必須顯示載入動畫：
 
 - 換頁 → 不顯示 Skeleton（Pagination 保持可操作）
 - 新篩選條件無快取 → 顯示 Skeleton
