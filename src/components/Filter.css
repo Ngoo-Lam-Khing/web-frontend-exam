@@ -7,19 +7,17 @@
   .MuiInputBase-root {
     height: 56px;
   }
-  &__company {
+  .filter__company {
     flex: 2.5 1 0%;
     min-width: 300px;
   }
-  &__select {
+  .filter__select {
     flex: 1 1 0%;
     min-width: 245px;
   }
-  &__submit {
+  .filter__submit {
     flex: 0.5 1 0%;
-  }
 
-  button {
     height: 56px;
     padding: 8px 22px;
     background-color: #999999;

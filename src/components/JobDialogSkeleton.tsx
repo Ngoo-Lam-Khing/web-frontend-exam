@@ -13,11 +13,7 @@ export default function JobDialogSkeleton() {
 
       {/* company photo */}
       <Box className="company-photo">
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height={150} // ⚠️ match swiper height
-        />
+        <Skeleton variant="rectangular" width="100%" height={150} />
       </Box>
 
       {/* desc title */}

@@ -27,7 +27,7 @@ const filterFormat = (
 
 export const handlers = [
   http.get('/api/v1/jobs', async ({ request }) => {
-    await delay(5000);
+    await delay();
     const url = new URL(request.url);
     const companyName = url.searchParams.get('company_name');
     const educationLevel = Number(url.searchParams.get('education_level'));
@@ -49,7 +49,7 @@ export const handlers = [
   }),
 
   http.get('/api/v1/jobs/:id', async ({ params }) => {
-    // await delay(5000);
+    await delay();
 
     const { id } = params;
     const data = jobList.find((job) => job.id === id);

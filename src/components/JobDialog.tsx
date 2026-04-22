@@ -56,7 +56,7 @@ export default function BaseDialog({ open, handleClose, detail, loading }: BaseD
                 modules={[Autoplay, Pagination]}
               >
                 {detail.companyPhoto.map((photo) => (
-                  <SwiperSlide key={photo}>
+                  <SwiperSlide>
                     <img src={photo} alt="" />
                   </SwiperSlide>
                 ))}
