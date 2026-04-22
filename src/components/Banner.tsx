@@ -14,8 +14,12 @@ import { useEyeOffset } from '../composables/useEye';
 
 import './Banner.css';
 
-const LEFT_EYE_RANGE = { xMin: -15, xMax: 4, yMin: -1.5, yMax: 6 };
-const RIGHT_EYE_RANGE = { xMin: -9, xMax: 7, yMin: -1, yMax: 6 };
+const LEFT_EYE_RANGE_MOBILE = { xMin: -10, xMax: 2, yMin: -1, yMax: 6 };
+const LEFT_EYE_RANGE_DESKTOP = { xMin: -20, xMax: 4, yMin: -1.5, yMax: 6 };
+
+const RIGHT_EYE_RANGE_MOBILE = { xMin: -5, xMax: 3, yMin: 0, yMax: 6 };
+const RIGHT_EYE_RANGE_DESKTOP = { xMin: -10, xMax: 7, yMin: -1, yMax: 6 };
+
 export default function Banner() {
   const isMobile = useMediaQuery('(max-width: 375px)');
   const [loaded, setLoaded] = useState(false);
@@ -30,8 +34,14 @@ export default function Banner() {
 
   const leftEyeRef = useRef<HTMLElement | null>(null);
   const rightEyeRef = useRef<HTMLElement | null>(null);
-  const leftEyePos = useEyeOffset(leftEyeRef, LEFT_EYE_RANGE);
-  const rightEyePos = useEyeOffset(rightEyeRef, RIGHT_EYE_RANGE);
+  const leftEyePos = useEyeOffset(
+    leftEyeRef,
+    isMobile ? LEFT_EYE_RANGE_MOBILE : LEFT_EYE_RANGE_DESKTOP,
+  );
+  const rightEyePos = useEyeOffset(
+    rightEyeRef,
+    isMobile ? RIGHT_EYE_RANGE_MOBILE : RIGHT_EYE_RANGE_DESKTOP,
+  );
   const leftEyeStyle = {
     transform: `translate(${leftEyePos.x}px, ${leftEyePos.y}px)`,
     transition: 'transform 0.1s ease-out',
